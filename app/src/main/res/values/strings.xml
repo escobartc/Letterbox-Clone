@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Letterbox Clone</string>
+    <string name="sign_in">Sign in</string>
+    <string name="create_account">Create account</string>
+    <string name="open_the_tour">Open the tour</string>
+    <string name="artwork">Artwork from</string>
+
+</resources>
