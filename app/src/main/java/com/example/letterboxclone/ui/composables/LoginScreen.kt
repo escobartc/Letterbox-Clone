@@ -1,7 +1,10 @@
 package com.example.letterboxclone.ui.composables
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
@@ -19,42 +22,58 @@ import com.example.letterboxclone.ui.theme.TextGray
 fun LoginOptions(modifier: Modifier) {
 
     Column(modifier.fillMaxWidth()) {
-        Divider(modifier = Modifier.fillMaxWidth(), color = BottomBarColor.copy(alpha = 0.5f))
+        Divider(modifier = Modifier.fillMaxWidth(), color = BottomBarColor.copy(alpha = 0.2f))
 
-        Text(
-            text = stringResource(id = R.string.sign_in),
-            modifier = Modifier.padding(12.dp),
-            color = TextGray
-        )
+        Row(modifier = Modifier.fillMaxWidth().clickable {
+
+        }) {
+            Text(
+                text = stringResource(id = R.string.sign_in),
+                modifier = Modifier.padding(12.dp),
+                color = TextGray
+            )
+        }
+
         Divider(
             modifier = Modifier
                 .padding(
                     start = 12.dp
                 )
-                .fillMaxWidth(), color = BottomBarColor.copy(alpha = 0.5f)
+                .fillMaxWidth(), color = BottomBarColor.copy(alpha = 0.4f)
         )
-        Text(
-            text = stringResource(id = R.string.create_account), modifier = Modifier.padding(12.dp),
-            color = TextGray
-        )
+
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Text(
+                text = stringResource(id = R.string.create_account),
+                modifier = Modifier.padding(12.dp),
+                color = TextGray
+            )
+        }
+
         Divider(
             modifier = Modifier
                 .padding(
                     start = 12.dp
                 )
-                .fillMaxWidth(), color = BottomBarColor.copy(alpha = 0.5f)
+                .fillMaxWidth(), color = BottomBarColor.copy(alpha = 0.4f)
         )
-        Text(
-            text = stringResource(id = R.string.open_the_tour), modifier = Modifier.padding(12.dp),
-            color = TextGray
-        )
-        Divider(modifier = Modifier.fillMaxWidth(), color = BottomBarColor.copy(alpha = 0.5f))
+
+        Row(modifier = Modifier.fillMaxWidth()) {
+
+            Text(
+                text = stringResource(id = R.string.open_the_tour),
+                modifier = Modifier.padding(12.dp),
+                color = TextGray
+            )
+        }
+
+        Divider(modifier = Modifier.fillMaxWidth(), color = BottomBarColor.copy(alpha = 0.2f))
 
     }
 
 }
 
 @Composable
-fun ImageLogo(modifier: Modifier) {
-    Image(painterResource(id = R.drawable.logo), contentDescription = "logo", modifier = modifier)
+fun ImageLogo(modifier: Modifier, @DrawableRes id: Int) {
+    Image(painterResource(id = id), contentDescription = "logo", modifier = modifier)
 }

@@ -8,13 +8,16 @@ import com.example.letterboxclone.domain.Constants
 import com.example.letterboxclone.domain.movie.MovieResponse
 import com.example.letterboxclone.domain.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.random.Random
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val repository: MovieRepository) : ViewModel() {
+
 
     private val _popularMovies = MutableLiveData<MovieResponse>()
     val popularMovies: LiveData<MovieResponse> get() = _popularMovies
@@ -28,13 +31,15 @@ class LoginViewModel @Inject constructor(private val repository: MovieRepository
     private val _currentTitle = MutableLiveData<String>()
     val currentTitle: LiveData<String> get() = _currentTitle
 
+    private var fetchJob: Job? = null
+
     init {
         startFetchingPopularMovies(Constants.API_KEY)
     }
 
     private fun startFetchingPopularMovies(apiKey: String) {
-        viewModelScope.launch {
-            while (true) {
+        fetchJob = viewModelScope.launch {
+            while (isActive) {
                 val page = Random.nextInt(1, 101)
                 fetchPopularMovies(apiKey, page)
                 delay(10000) // 10 seconds
@@ -80,5 +85,9 @@ class LoginViewModel @Inject constructor(private val repository: MovieRepository
             }
         }
     }
-}
 
+    override fun onCleared() {
+        super.onCleared()
+        fetchJob?.cancel()
+    }
+}
